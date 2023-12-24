@@ -1,4 +1,13 @@
-module Parser () where
+module Parser
+  ( matchChar,
+    matchString,
+    matchOne,
+    parseWhile,
+    parseIf,
+    oneOf,
+    Parser (..),
+  )
+where
 
 import Control.Applicative
 import Utils
@@ -63,3 +72,5 @@ parseWhile predicate = Parser $ toResult <$> splitWhen predicate
 --   the parseres in the given array are sucessful
 oneOf :: [Parser a] -> Parser a
 oneOf = foldl (<|>) empty
+
+matchOne pattern = oneOf $ map matchString pattern
